@@ -1,0 +1,89 @@
+<html>
+<head>
+
+<style>
+.leftmenu{}
+.leftmenu span{ border:1px solid #000;}
+.lmenu{ padding:5px;margin-left:4px;}
+.leftmenu .lmenu{ border-right:1px solid green;}
+.leftmenu span:hover{ border:1px solid red;cursor:pointer}
+.prolist { padding: 2px; cursor: pointer; }
+.remove {  cursor: pointer; }
+</style>
+
+</head>
+<body ng-app="demoApp">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.1/ui-bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.1/ui-bootstrap-tpls.js"></script>
+<script src="app.js"></script>
+
+<div class="container">
+
+<div ng-controller="TabsDemoCtrl">
+ 	
+	<div class="col-md-12">
+	
+		<div class="col-md-3 leftmenu">
+			<div class="lmenu">
+				<div class="row">			
+					<span ng-click="displayone()" >Category ONE</span>
+				</div>
+				<div class="row">	
+					<span ng-click="displaysec()" >Category TWO</span>
+				</div>
+				<div class="row">	
+					<span ng-click="displaythird()">Category THREE</span>
+				</div>
+			</div>
+	    </div>
+	
+		<div class="col-md-6">
+			<div class="row">	
+				<ul ng-show="services">				
+					<li ng-repeat="service in services" ng-click="addToCart(service)" class="prolist">
+						<!-- Notice the use of the currency filter, it will format the price -->
+						{{service.name}} <span>{{service.price | currency}}</span>
+					</li>
+				</ul>
+			</div>		
+	    </div>
+	
+	</div>	
+
+
+
+<h2> Selected List </h2>
+<div >
+    <table class="table">
+        <tr>            
+            <th>Product Name</th>
+            <th>Qty</th>
+            <th>Cost</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        <tr ng:repeat="item in invoice">
+            <td>{{item.description}}</td>           
+            <td>{{item.qty}}</td>
+            <td>{{item.cost}}</td>
+            <td>{{item.qty * item.cost | currency}}</td>
+            <td>
+               [<span class="remove" ng-click="removeItemFromCart($index)" >X </span>]
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>Total:</td>
+            <td>{{total() | currency}}</td>
+        </tr>
+    </table>
+</div>
+
+</div>
+
+</body>
+</html>
